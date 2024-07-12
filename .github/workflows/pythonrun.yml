@@ -35,7 +35,7 @@ jobs:
             - name: Ejecucion de Pruebas
               env:
                 SQLALCHEMY_DATABASE_URI: "mysql+mysqlconnector://root:admin@localhost:3306/BookInventory"
-              run: pytest app_test.py
+              run: pytest app_test.py --cov
 
             - name: Mostrar mensaje de éxito
               run: echo "Exito en todas las Acciones"
