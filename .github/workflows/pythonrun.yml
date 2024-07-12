@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-latest
         services:
             mysql:
-              image: mysql:5.7
+              image: mysql
               ports:
                 - 3306:3306
               options: >-
@@ -18,7 +18,7 @@ jobs:
                 --health-timeout=5s
                 --health-retries=3
               env:
-                MYSQL_ROOT_PASSWORD: user
+                MYSQL_ROOT_PASSWORD: admin
                 MYSQL_DATABASE: books
         steps:
             - name: Hacer checkout del proyecto
@@ -33,7 +33,9 @@ jobs:
               run: pip install -r requirements.txt
 
             - name: Ejecucion de Pruebas
-              run: python -m unittest discover -s tests
+              env:
+                SQLALCHEMY_DATABASE_URI: "mysql+mysqlconnector://root:admin@localhost:3306/books"
+              run: pytest app_test.py 
 
             - name: Mostrar mensaje de éxito
               run: echo "Exito en todas las Acciones"

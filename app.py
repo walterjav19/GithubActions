@@ -5,41 +5,38 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 app.config["DEBUG"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:user@localhost/BookInventory"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:admin@localhost/BookInventory"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 CORS(app)
 
 class Author(db.Model):
-    __tablename__ = 'author'
+    __tablename__ = 'Author'
     author_id = db.Column(db.Integer, primary_key=True)
     author_name = db.Column(db.String(50), nullable=False)
     author_email = db.Column(db.String(50), nullable=False)
     author_age = db.Column(db.Integer, nullable=False)
 
-    def __repr__(self):
-        return f'<Author {self.author_name}>'
+
 
 class Genre(db.Model):
-    __tablename__ = 'genre'
+    __tablename__ = 'Genre'
     genre_id = db.Column(db.Integer, primary_key=True)
     genre_name = db.Column(db.String(50), nullable=False)
 
-    def __repr__(self):
-        return f'<Genre {self.genre_name}>'
+
 
 class Editorial(db.Model):
-    __tablename__ = 'editorial'
+    __tablename__ = 'Editorial'
     editorial_id = db.Column(db.Integer, primary_key=True)
     editorial_name = db.Column(db.String(50), nullable=False)
     editorial_location = db.Column(db.String(50), nullable=False)
     editorial_phone = db.Column(db.String(50), nullable=False)
 
-    def __repr__(self):
-        return f'<Editorial {self.editorial_name}>'
+
 
 class Book(db.Model):
-    __tablename__ = 'book'
+    __tablename__ = 'Book'
     ISBN = db.Column(db.BigInteger, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
@@ -48,8 +45,7 @@ class Book(db.Model):
     genre_id = db.Column(db.Integer, db.ForeignKey('genre.genre_id'), nullable=False)
     editorial_id = db.Column(db.Integer, db.ForeignKey('editorial.editorial_id'), nullable=False)
 
-    def __repr__(self):
-        return f'<Book {self.book_title}>'
+
 
 @app.route('/')
 def home():
