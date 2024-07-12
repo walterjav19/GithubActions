@@ -19,7 +19,7 @@ jobs:
                 --health-retries=3
               env:
                 MYSQL_ROOT_PASSWORD: admin
-                MYSQL_DATABASE: books
+                MYSQL_DATABASE: BookInventory
         steps:
             - name: Hacer checkout del proyecto
               uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
 
             - name: Ejecucion de Pruebas
               env:
-                SQLALCHEMY_DATABASE_URI: "mysql+mysqlconnector://root:admin@localhost:3306/books"
+                SQLALCHEMY_DATABASE_URI: "mysql+mysqlconnector://root:admin@localhost:3306/BookInventory"
               run: pytest app_test.py 
 
             - name: Mostrar mensaje de éxito
